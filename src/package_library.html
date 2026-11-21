@@ -1,0 +1,26 @@
+<section id="game-library" class="settings-section" aria-labelledby="package-heading">
+	<h3 id="package-heading">Your games</h3>
+	<div class="content-choice">
+		<label>Game content
+			<select id="game-content" aria-describedby="content-status"></select>
+		</label>
+		<div class="button-row">
+			<button id="use-content" type="button">Use selected game</button>
+			<button id="default-content" type="button">Set as default</button>
+		</div>
+	</div>
+	<p id="content-status" class="subtle-status" role="status"></p>
+	<div id="remembered-package" hidden>
+		<ul id="package-files" class="package-list"></ul>
+		<div class="button-row">
+			<button id="play-package" type="button" class="primary">Play in browser ↗</button>
+			<label class="button file-button">Add update or track files<input id="add-packages" type="file" accept=".ass" multiple /></label>
+			<a id="prepare-package" class="button" href="game-files/#prepare">Prepare update</a>
+			<button id="forget-package" type="button" class="quiet">Remove selected game</button>
+		</div>
+	</div>
+	<p id="package-status" class="subtle-status" role="status"></p>
+	<div class="button-row">
+		<button id="forget-current-package" type="button" class="quiet" hidden></button>
+	</div>
+</section>
