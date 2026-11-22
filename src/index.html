@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<base href="@BASE_URL@" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1"
+		/>
+		<meta name="openmh-extractor" content="@EXTRACTOR_URL@" />
+		<meta name="openmh-assets" content="@ASSET_URL@" />
+		<meta name="openmh-content-label" content="@CONTENT_LABEL@" />
+		<meta name="openmh-unlock-all" content="@UNLOCK_ALL@" />
+		<meta name="openmh-multiplayer" content="@MULTIPLAYER@" />
+		<meta name="theme-color" content="#040420" />
+		<title>OpenMH - Play</title>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<main>
+			@SITE_HEADER@
+
+			<section
+				id="mobile-unsupported"
+				class="compatibility-notice"
+				aria-labelledby="mobile-heading"
+				hidden
+			>
+				<h2 id="mobile-heading">
+					Mobile devices aren’t supported.
+				</h2>
+				<p class="intro">
+					Please open OpenMH on a desktop or
+					laptop computer.
+				</p>
+			</section>
+
+			<section id="launcher" hidden>
+				<div
+					class="setup-tabs"
+					role="tablist"
+					aria-label="Launcher"
+				>
+					<button
+						type="button"
+						id="play-tab"
+						role="tab"
+						aria-selected="true"
+						aria-controls="picker"
+						data-route="play"
+					>
+						Play
+					</button>
+					<button
+						type="button"
+						id="launcher-settings-tab"
+						role="tab"
+						aria-selected="false"
+						aria-controls="launcher-settings"
+						data-route="launcher-settings"
+						tabindex="-1"
+					>
+						Settings
+					</button>
+				</div>
+				<section id="picker" role="tabpanel" aria-labelledby="play-tab">
+					<h2>Choose your game</h2>
+					<p class="intro">Play the included demo or add your own game files below.</p>
+					@PACKAGE_TOOLS@
+				</section>
+				<div
+					id="launcher-settings"
+					role="tabpanel"
+					aria-labelledby="launcher-settings-tab"
+					hidden
+				>
+					<section
+						class="settings-section"
+						aria-labelledby="launch-heading"
+					>
+						<h3 id="launch-heading">
+							Launch
+						</h3>
+
+						<label>
+							Launch into
+							<select id="frontend">
+								<option
+									value="web"
+								>
+									Web race
+									setup
+								</option>
+								<option
+									value="original"
+								>
+									Original
+									menus
+								</option>
+							</select>
+						</label>
+					</section>
+					<section
+						id="save-tools"
+						class="settings-section"
+						aria-labelledby="saves-heading"
+					>
+						<h3 id="saves-heading">
+							Saves
+						</h3>
+						<p
+							id="save-status"
+							role="status"
+						>
+							Saves are stored in this
+							browser. Export a backup
+							to move them to another
+							browser.
+						</p>
+						<div class="button-row">
+							<button
+								type="button"
+								id="export-saves"
+							>
+								Export saves
+							</button>
+							<label
+								class="button file-button"
+							>
+								Import saves
+								<input
+									id="import-saves"
+									type="file"
+									accept=".omsave"
+								/>
+							</label>
+							<button type="button" id="reset-data">Reset</button>
+						</div>
+					</section>
+				</div>
+			</section>
+
+			<section id="race-setup" hidden>
+				<p id="race-message" role="status"></p>
+				<form id="race-form">
+					<div
+						class="setup-tabs"
+						role="tablist"
+						aria-label="Game navigation"
+					>
+						<button
+							type="button"
+							id="single-player-tab"
+							role="tab"
+							aria-selected="true"
+							aria-controls="single-player-panel"
+							data-route="single-player"
+						>
+							Single player
+						</button>
+						<button
+							type="button"
+							id="multiplayer-tab"
+							role="tab"
+							aria-selected="false"
+							aria-controls="multiplayer-panel"
+							data-route="multiplayer"
+							tabindex="-1"
+						>
+							Multiplayer
+						</button>
+						<button
+							type="button"
+							id="settings-tab"
+							role="tab"
+							aria-selected="false"
+							aria-controls="settings-panel"
+							data-route="settings"
+							tabindex="-1"
+						>
+							Settings
+						</button>
+					</div>
+					<div
+						id="single-player-panel"
+						role="tabpanel"
+						aria-labelledby="single-player-tab"
+					>
+						<div
+							class="setup-tabs secondary-tabs"
+							role="tablist"
+							aria-label="Single player"
+						>
+							<button
+								type="button"
+								id="race-tab"
+								role="tab"
+								aria-selected="true"
+								aria-controls="race-panel"
+								data-route="single-player"
+							>
+								Race
+							</button>
+							<button
+								type="button"
+								id="results-tab"
+								role="tab"
+								aria-selected="false"
+								aria-controls="results-panel"
+								data-route="single-player/results"
+								tabindex="-1"
+							>
+								Results
+							</button>
+						</div>
+						<div
+							id="race-panel"
+							role="tabpanel"
+							aria-labelledby="race-tab"
+						>
+							<div
+								id="solo-configuration"
+							></div>
+							<button
+								type="submit"
+								class="primary start-button"
+							>
+								START RACE
+								<span
+									aria-hidden="true"
+								>
+									↗
+								</span>
+							</button>
+						</div>
+						<div
+							id="results-panel"
+							role="tabpanel"
+							aria-labelledby="results-tab"
+							hidden
+						>
+							<p
+								id="history-status"
+								class="subtle-status"
+								role="status"
+							></p>
+							<p id="results-empty">
+								Finish a race to see
+								your results here.
+							</p>
+							<section
+								id="race-results"
+								hidden
+							>
+								<h3>Race history</h3>
+								<label>
+									Race
+									<select
+										id="race-history"
+										aria-label="Saved race"
+									></select>
+								</label>
+								<p
+									id="race-result-details"
+									class="subtle-status"
+								></p>
+								<div
+									class="table-scroll"
+								>
+									<table>
+										@RESULT_HEADER@
+										<tbody
+											id="race-result-rows"
+										></tbody>
+									</table>
+								</div>
+							</section>
+						</div>
+					</div>
+					<div
+						id="multiplayer-panel"
+						role="tabpanel"
+						aria-labelledby="multiplayer-tab"
+						hidden
+					>
+						<p
+							id="lobby-status"
+							role="status"
+						></p>
+						<fieldset
+							id="lobby-connection"
+							class="settings-section"
+						>
+							<legend>
+								Join a server
+							</legend>
+							<div
+								class="settings-grid"
+							>
+								<label>
+									Server
+									address
+									<input
+										id="server-url"
+										type="text"
+										inputmode="url"
+										autocomplete="url"
+										placeholder="https://server.example.org/"
+										maxlength="2047"
+									/>
+								</label>
+								<label>
+									Password
+									(if
+									required)
+									<input
+										id="server-password"
+										type="password"
+										autocomplete="off"
+										maxlength="15"
+									/>
+								</label>
+							</div>
+							<button
+								id="join-server"
+								type="button"
+								class="primary"
+							>
+								Join server
+							</button>
+						</fieldset>
+
+						<div
+							id="lobby-configuration"
+							hidden
+						></div>
+
+						<div
+							id="lobby-connected"
+							hidden
+						>
+							<div
+								class="lobby-workspace"
+							>
+								<section
+									class="lobby-roster"
+									aria-label="Drivers"
+								>
+									<ul
+										id="lobby-players"
+										aria-label="Players in this server"
+									></ul>
+								</section>
+								<section
+									class="lobby-chat"
+									aria-label="Console"
+								>
+									<div
+										id="lobby-console"
+										role="log"
+										aria-live="polite"
+										aria-relevant="additions text"
+										tabindex="0"
+										aria-label="Chat and server messages"
+									>
+										<ol
+											id="lobby-chat-log"
+										></ol>
+										<p
+											id="lobby-notice"
+										></p>
+										<p
+											id="lobby-command-output"
+											hidden
+										></p>
+									</div>
+									<div
+										class="lobby-chat-compose"
+									>
+										<input
+											id="lobby-chat-input"
+											type="text"
+											maxlength="1000"
+											autocomplete="off"
+											aria-label="Message"
+											placeholder="Message or /command"
+										/>
+										<button
+											id="lobby-chat-send"
+											type="button"
+										>
+											Send
+										</button>
+									</div>
+								</section>
+							</div>
+							<details
+								id="lobby-results"
+								class="lobby-results"
+								hidden
+							>
+								<summary>
+									Last
+									race
+									results
+								</summary>
+								<div
+									class="table-scroll"
+								>
+									<table
+										aria-label="Last server race results"
+									>
+										@RESULT_HEADER@
+										<tbody
+											id="lobby-result-rows"
+										></tbody>
+									</table>
+								</div>
+							</details>
+							<button
+								id="lobby-ready"
+								type="button"
+								class="primary start-button"
+							>
+								<span
+									id="lobby-ready-label"
+								>
+									Ready
+								</span>
+								<span
+									aria-hidden="true"
+								>
+									↗
+								</span>
+							</button>
+							<div
+								id="lobby-actions"
+								class="button-row lobby-commands"
+								hidden
+							>
+								<button
+									id="lobby-commands"
+									type="button"
+									class="quiet"
+								>
+									Commands
+								</button>
+								<button
+									id="lobby-server-commands"
+									type="button"
+									class="quiet"
+								>
+									Server
+									commands
+								</button>
+								<button
+									id="leave-server"
+									type="button"
+									class="quiet"
+								>
+									Leave
+									server
+								</button>
+							</div>
+						</div>
+					</div>
+					<div
+						id="settings-panel"
+						role="tabpanel"
+						aria-labelledby="settings-tab"
+						hidden
+					>
+						<fieldset
+							class="settings-section driver-settings"
+						>
+							<legend>Driving</legend>
+							<div
+								class="settings-grid"
+							>
+								<label
+									class="check-label"
+								>
+									<input
+										name="automatic"
+										type="checkbox"
+									/>
+									Automatic
+									transmission
+								</label>
+							</div>
+						</fieldset>
+						<fieldset
+							class="settings-section"
+						>
+							<legend>
+								Graphics
+							</legend>
+							<div
+								class="settings-grid graphics-settings"
+							>
+								<label>
+									Resolution
+									<select
+										name="resolution"
+										required
+									></select>
+								</label>
+								<label>
+									Detail
+									<select
+										name="detail"
+									>
+										<option
+											value="0"
+										>
+											Low
+										</option>
+										<option
+											value="1"
+										>
+											Medium
+										</option>
+										<option
+											value="2"
+										>
+											High
+										</option>
+										<option
+											value="3"
+										>
+											Maximum
+										</option>
+										<option
+											value="4"
+										>
+											Saved
+											custom
+											settings
+										</option>
+									</select>
+								</label>
+								<label
+									class="check-label"
+								>
+									<input
+										name="showFPS"
+										type="checkbox"
+									/>
+									Show FPS
+								</label>
+								<label class="check-label">
+									<input
+										name="showPlayerNames"
+										type="checkbox"
+									/>
+									Show player names
+								</label>
+							</div>
+						</fieldset>
+						<fieldset
+							class="settings-section"
+						>
+							<legend>Sound</legend>
+							<div
+								class="settings-grid"
+							>
+								<label>
+									Effects
+									volume
+									<input
+										name="effectsVolume"
+										type="number"
+										min="0"
+										max="100"
+										required
+									/>
+								</label>
+								<label>
+									Music
+									volume
+									<input
+										name="musicVolume"
+										type="number"
+										min="0"
+										max="100"
+										required
+									/>
+								</label>
+								<label>
+									Horn
+									<select
+										name="horn"
+									></select>
+								</label>
+								<label>
+									Audio
+									renderer
+									<select
+										name="audioProfile"
+									></select>
+								</label>
+							</div>
+						</fieldset>
+						<section
+							id="keyboard-settings"
+							class="settings-section"
+							aria-labelledby="keyboard-heading"
+						>
+							<h3
+								id="keyboard-heading"
+							>
+								Keyboard
+							</h3>
+							<div
+								id="keyboard-bindings"
+								class="settings-grid"
+							></div>
+							<p
+								class="keyboard-note"
+							>
+								Press
+								<kbd>Esc</kbd>
+								to pause or
+								resume. <kbd>F11</kbd> toggles fullscreen.
+								In fullscreen, <kbd>P</kbd> also pauses or
+								resumes a single-player race.
+							</p>
+						</section>
+						<p class="settings-note">
+							Settings are saved when
+							you start a race.
+						</p>
+					</div>
+				</form>
+			</section>
+
+			<div id="asset-download" hidden>
+				<label for="asset-download-progress">
+					Downloading game assets…
+				</label>
+				<progress
+					id="asset-download-progress"
+					aria-describedby="asset-download-size"
+				></progress>
+				<p
+					id="asset-download-size"
+					data-download-size
+				></p>
+			</div>
+			<p id="status" class="subtle-status" role="status"></p>
+			<div class="button-row session-tools">
+				<div
+					id="race-actions"
+					class="button-row"
+					hidden
+				>
+					<button id="pause-race">Pause</button>
+				</div>
+				<button id="fullscreen" hidden>
+					Fullscreen
+				</button>
+				<button id="restart-race" hidden>Restart race</button>
+				<button id="leave-race" class="quiet">
+					Leave race
+				</button>
+				<button id="retry-storage" hidden>
+					Retry saves
+				</button>
+				<button id="resume" hidden>Resume game</button>
+			</div>
+			<dialog
+				id="reset-dialog"
+				class="floating-overlay notice-overlay"
+				aria-labelledby="reset-heading"
+			>
+				<form id="reset-form" class="notice-card reset-card">
+					<h3 id="reset-heading">Reset data</h3>
+					<div class="reset-toolbar">
+						<p>Choose what to reset.</p>
+						<button type="button" id="reset-all" class="quiet">
+							Select all
+						</button>
+					</div>
+					<fieldset id="reset-options" aria-label="Data to reset">
+						<label class="check-label">
+							<input type="checkbox" name="settings" checked />
+							<span>Settings</span>
+							<small>Driver, graphics, sound, race setup and saved servers</small>
+						</label>
+						<label class="check-label">
+							<input type="checkbox" name="controls" checked />
+							<span>Key bindings</span>
+							<small>Restore the original control profiles</small>
+						</label>
+						<label class="check-label">
+							<input type="checkbox" name="progress" />
+							<span>Progress and recordings</span>
+							<small>Unlocks, leagues, records and saved replays</small>
+						</label>
+						<label class="check-label">
+							<input type="checkbox" name="history" />
+							<span>Race history</span>
+							<small>Results listed under Single player</small>
+						</label>
+						<label class="check-label">
+							<input type="checkbox" name="packages" />
+							<span>Added game files</span>
+							<small>The built-in demo stays available</small>
+						</label>
+					</fieldset>
+					<p id="reset-status" role="status"></p>
+					<div class="reset-footer">
+						<p>This cannot be undone.</p>
+						<div class="button-row">
+							<button type="button" id="reset-cancel" class="quiet">
+								Cancel
+							</button>
+							<button type="submit" id="reset-confirm" class="primary">
+								Reset selected
+							</button>
+						</div>
+					</div>
+				</form>
+			</dialog>
+			<dialog
+				id="navigation-notice"
+				class="floating-overlay notice-overlay"
+				aria-labelledby="navigation-message"
+			>
+				<form method="dialog" class="notice-card">
+					<p id="navigation-message">
+						Leave the server before switching tabs.
+					</p>
+					<button autofocus>OK</button>
+				</form>
+			</dialog>
+			<dialog
+				id="race-overlay"
+				class="floating-overlay"
+				aria-label="Race"
+			>
+				<div id="race-shell">
+					<div id="race-view">
+						<canvas
+							id="canvas"
+							width="640"
+							height="480"
+							tabindex="0"
+							hidden
+						></canvas>
+						<div
+							id="race-notices"
+							class="notice-card"
+							aria-live="polite"
+						></div>
+						<button
+							type="button"
+							id="continue-race"
+							hidden
+						>
+							Press any key to
+							continue
+						</button>
+					</div>
+				</div>
+			</dialog>
+			<dialog
+				id="results-overlay"
+				class="floating-overlay"
+				aria-labelledby="summary-title"
+			>
+				<div class="button-row summary-tools">
+					<button
+						type="button"
+						id="close-results"
+						autofocus
+					>
+						Continue
+					</button>
+				</div>
+				<section class="results-card">
+					<h2 id="summary-title">Race results</h2>
+					<div class="table-scroll">
+						<table>
+							@RESULT_HEADER@
+							<tbody
+								id="summary-result-rows"
+							></tbody>
+						</table>
+					</div>
+				</section>
+			</dialog>
+			<pre id="error" role="alert" hidden></pre>
+		</main>
+
+		<template id="race-configuration-template">
+			<fieldset class="driver-section">
+				<legend>Driver</legend>
+				<div class="settings-grid driver-profile">
+					<label>
+						Name
+						<input
+							name="name"
+							maxlength="15"
+							required
+							pattern="[ -~]{1,15}"
+							autocomplete="nickname"
+						/>
+					</label>
+					<label>
+						Team
+						<input
+							name="team"
+							maxlength="4"
+							pattern="[ -~]{0,4}"
+							placeholder="Up to 4 characters"
+						/>
+					</label>
+					<label>
+						Color
+						<span class="name-color-field">
+							<select
+								name="nameColor"
+								required
+							></select>
+							<span
+								id="name-color-swatch"
+								class="name-color-swatch"
+								aria-hidden="true"
+							></span>
+						</span>
+					</label>
+					<button
+						id="apply-profile"
+						type="button"
+						aria-label="Apply driver changes"
+						data-multiplayer
+						hidden
+					>
+						Apply
+					</button>
+				</div>
+			</fieldset>
+			<div class="selection-grid">
+				<fieldset class="selection-card track-card">
+					<legend>
+						<span class="section-number">
+							01
+						</span>
+						The circuit
+					</legend>
+					<label class="selection-label">
+						Track
+						<select
+							name="track"
+							required
+						></select>
+					</label>
+					<p
+						id="track-details"
+						class="track-details"
+					></p>
+					<div class="map-stage">
+						<span
+							class="map-caption"
+							aria-hidden="true"
+						>
+							Circuit layout
+						</span>
+						<canvas
+							id="track-map"
+							class="track-map"
+							role="img"
+							aria-label="Selected track layout"
+							hidden
+						></canvas>
+						<p
+							id="track-map-status"
+							class="track-map-status"
+							role="status"
+						></p>
+					</div>
+				</fieldset>
+				<fieldset class="selection-card car-card">
+					<legend>
+						<span class="section-number">
+							02
+						</span>
+						Car
+					</legend>
+					<label class="selection-label">
+						Car
+						<select
+							name="car"
+							required
+						></select>
+					</label>
+					<div
+						id="car-details"
+						class="car-details"
+					></div>
+				</fieldset>
+			</div>
+			<fieldset class="race-settings">
+				<legend>Race configuration</legend>
+				<div class="settings-grid race-options">
+					<label>
+						Mode
+						<select
+							name="mode"
+							required
+						></select>
+					</label>
+					<label>
+						Laps
+						<select
+							name="laps"
+							required
+						></select>
+					</label>
+					<label data-solo>
+						Music track
+						<select
+							name="musicTrack"
+						></select>
+					</label>
+					<label data-solo>
+						Difficulty
+						<select name="difficulty">
+							<option value="0">
+								Easy
+							</option>
+							<option value="1">
+								Medium
+							</option>
+							<option value="2">
+								Hard
+							</option>
+						</select>
+					</label>
+					<label class="check-label" data-solo>
+						<input
+							name="catchUp"
+							type="checkbox"
+						/>
+						Catch-up
+					</label>
+				</div>
+			</fieldset>
+		</template>
+		@RUNTIME_SCRIPTS@
+		<script src="saves.js"></script>
+		@PACKAGE_SCRIPTS@
+		<script src="download_progress.js"></script>
+		<script src="keyboard_settings.js"></script>
+		<script src="race_results.js"></script>
+		<script src="race_configuration.js"></script>
+		<script src="lobby.js"></script>
+		<script src="race_view.js"></script>
+		<script src="race_setup.js"></script>
+		<script src="startup.js"></script>
+	</body>
+</html>

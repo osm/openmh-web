@@ -1,0 +1,58 @@
+<section id="prepare-game" aria-labelledby="prepare-heading" hidden>
+	<h3 id="prepare-heading" tabindex="-1">
+		Prepare your
+		game
+	</h3>
+	<label>
+		Base game
+		<select
+			id="prepare-source"
+		></select>
+	</label>
+	<div class="prepare-update">
+		<label>
+			Game update (optional)
+			<select id="prepare-patch"></select>
+		</label>
+		<label class="button file-button">
+			Add update file
+			<input id="prepare-add-update" type="file" accept=".exe" />
+		</label>
+	</div>
+	<label
+		class="check-label"
+	>
+		<input
+			id="prepare-no-music"
+			type="checkbox"
+		/>
+		Exclude music
+	</label>
+	<label
+		class="check-label"
+	>
+		<input
+			id="prepare-no-movies"
+			type="checkbox"
+		/>
+		Exclude movies
+	</label>
+	<ol id="prepare-stages" class="prepare-stages" aria-label="Preparation stages">
+		<li data-stage="prepare"><span>1. Prepare files</span><span class="stage-state">Waiting</span></li>
+		<li data-stage="build"><span>2. Build package</span><span class="stage-state">Waiting</span></li>
+		<li data-stage="export"><span>3. Check package</span><span class="stage-state">Waiting</span></li>
+		<li data-stage="save"><span>4. Save in browser</span><span class="stage-state">Waiting</span></li>
+	</ol>
+	<p id="prepare-progress-label" class="subtle-status" role="status"></p>
+	<progress id="prepare-progress" aria-labelledby="prepare-progress-label" hidden></progress>
+	<p
+		id="prepare-status"
+		class="subtle-status"
+		role="status"
+		aria-live="polite"
+	></p>
+	<button id="prepare-start" class="primary start-button" type="button">
+		PREPARE GAME <span aria-hidden="true">↗</span>
+	</button>
+	<button id="prepare-cancel" type="button" class="quiet">Cancel</button>
+</section>

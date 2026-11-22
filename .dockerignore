@@ -1,0 +1,13 @@
+# Only website build inputs enter the context. Supply runtime/content separately.
+**
+!src/
+!assets/preview.png
+!assets/favicon.ico
+!tools/
+!scripts/
+!docker/
+!runtime.lock.json
+!VERSION
+!LICENSE.md
+**/__pycache__/**
+**/*.pyc

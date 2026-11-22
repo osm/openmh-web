@@ -1,0 +1,73 @@
+<section id="prepare-panel" role="tabpanel" aria-labelledby="prepare-tab" hidden>
+	<div id="guide-tabs" class="setup-tabs secondary-tabs" role="tablist" aria-label="Preparation method">
+		<button type="button" role="tab" id="browser-guide-tab" aria-selected="true" aria-controls="browser-guide" data-route="prepare">In your browser</button>
+		<button type="button" role="tab" id="windows-guide-tab" aria-selected="false" aria-controls="windows-guide" data-route="prepare-windows" tabindex="-1">Windows</button>
+		<button type="button" role="tab" id="linux-guide-tab" aria-selected="false" aria-controls="linux-guide" data-route="prepare-linux" tabindex="-1">Linux</button>
+	</div>
+	<section id="browser-guide" role="tabpanel" aria-labelledby="browser-guide-tab">
+		<ol class="guide-steps">
+			<li>
+				<h2>Choose files</h2>
+				<p>Add an <code>.ass</code> package, game download or disc image below.</p>
+			</li>
+			<li>
+				<h2>Prepare</h2>
+				<p>Packages are added directly. For source files, click <strong>Prepare game</strong>.</p>
+			</li>
+			<li>
+				<h2>Play</h2>
+				<p>Click <strong>Play in browser</strong>, or download the package for your computer.</p>
+			</li>
+		</ol>
+		<div id="import-hint" class="guide-help" hidden>
+			<p>Using a physical CD? Choose <strong>Windows</strong> or <strong>Linux</strong> above.</p>
+			<details>
+				<summary>Which files can I use?</summary>
+				<ul>
+					<li><strong>Demo download:</strong> select its <code>.exe</code> file.</li>
+					<li><strong>Disc image:</strong> select an <code>.iso</code>, or a <code>.cue</code>/<code>.toc</code> together with all its <code>.bin</code> files.</li>
+					<li><strong>Already prepared:</strong> select your <code>.ass</code> files below. No conversion is needed.</li>
+				</ul>
+			</details>
+			<details>
+				<summary>Optional: update the full game to version 3.0</summary>
+				<p>Patch 3.0 adds extra cars and includes the earlier game-data updates. Older patches are not needed.</p>
+				<p>Patch 3.1 only fixes the original Windows executable; it adds no game data for OpenMH.</p>
+				<p>If you have <code>motorp30.exe</code>, select it together with your full-game files. The update will be included in your game package.</p>
+				<p>Otherwise, leave <strong>No update</strong> selected. You can play without it.</p>
+			</details>
+		</div>
+		<section id="package-import" class="settings-section" aria-labelledby="import-heading">
+			<h3 id="import-heading">Add game files</h3>
+			<p id="prepare-target" class="subtle-status" hidden></p>
+			@PACKAGE_UPLOAD@
+			<p id="import-status" class="subtle-status" role="status"></p>
+			@IMPORT_FORM@
+		</section>
+		<section id="prepared-game" class="settings-section" aria-labelledby="prepared-heading" hidden>
+			<h2 id="prepared-heading" tabindex="-1">Your game is ready</h2>
+			<p>Added to your game library.</p>
+			<div class="button-row">
+				<a id="play-prepared" class="button primary" href="play/">Play in browser ↗</a>
+				<a id="view-prepared" class="button" href="game-files/#library">View game library</a>
+				<div id="prepared-downloads" class="button-row"></div>
+			</div>
+		</section>
+	</section>
+	<section id="windows-guide" class="native-guide" role="tabpanel" aria-labelledby="windows-guide-tab" hidden>
+		<h2>Prepare on Windows</h2>
+		<ol><li><a href="https://github.com/osm/openmh/releases">Download OpenMH</a> and extract the ZIP.</li><li>Insert your Motorhead CD and open a terminal in that folder.</li><li>Run this command, replacing <code>D:</code> with your CD drive:</li></ol>
+		<pre><code>.\openmotorex.exe --compact D: game.ass</code></pre>
+		<p>For a disc image, replace <code>D:</code> with its CUE, TOC or ISO path. Keep its BIN files alongside it. To prepare patch 3.0 separately:</p>
+		<pre><code>.\openmotorex.exe motorp30.exe patch30.ass</code></pre>
+		<p>Choose <strong>In your browser</strong> above and add <code>game.ass</code> and, if prepared, <code>patch30.ass</code>.</p>
+	</section>
+	<section id="linux-guide" class="native-guide" role="tabpanel" aria-labelledby="linux-guide-tab" hidden>
+		<h2>Prepare on Linux</h2>
+		<ol><li><a href="https://github.com/osm/openmh/releases">Download OpenMH</a> and unpack it.</li><li>Insert your Motorhead CD and open a terminal in that folder.</li><li>Run this command, replacing <code>/dev/sr0</code> if your drive uses another path:</li></ol>
+		<pre><code>./openmotorex --compact /dev/sr0 game.ass</code></pre>
+		<p>For a disc image, use its CUE, TOC or ISO path instead. Keep its BIN files alongside it. To prepare patch 3.0 separately:</p>
+		<pre><code>./openmotorex motorp30.exe patch30.ass</code></pre>
+		<p>Choose <strong>In your browser</strong> above and add <code>game.ass</code> and, if prepared, <code>patch30.ass</code>.</p>
+	</section>
+</section>
